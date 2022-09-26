@@ -3,8 +3,7 @@ package cyborgcabbage.noenchant.mixin;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.EnchantingTableBlock;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.screen.NamedScreenHandlerFactory;
-import net.minecraft.text.TranslatableText;
+import net.minecraft.text.Text;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Formatting;
 import net.minecraft.util.Hand;
@@ -21,7 +20,7 @@ public class DisableEnchantingTableMixin {
 	@Inject(method = "onUse", at = @At("HEAD"), cancellable = true)
 	private void redirect(BlockState state, World world, BlockPos pos, PlayerEntity player, Hand hand, BlockHitResult hit, CallbackInfoReturnable<ActionResult> cir) {
 		if(!world.isClient) {
-			player.sendMessage(new TranslatableText("noenchant.warning").formatted(Formatting.RED), true);
+			player.sendMessage(Text.translatable("noenchant.warning").formatted(Formatting.RED), true);
 			cir.setReturnValue(ActionResult.CONSUME);
 		}else{
 			cir.setReturnValue(ActionResult.SUCCESS);
